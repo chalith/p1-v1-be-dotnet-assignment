@@ -20,8 +20,6 @@ namespace Infrastructure.EntityConfigurations
                 a.Property<Guid>("FlightRateId");
                 a.WithOwner();
             });
-
-            
         }
     }
 }

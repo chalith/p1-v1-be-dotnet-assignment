@@ -3,6 +3,9 @@ using MediatR;
 
 namespace API.Application.Commands
 {
+    /**
+    Create airport request takes airport code and name as params.
+    **/
     public class CreateAirportCommand : IRequest<Airport>
     {
         public string Code { get; private set; }

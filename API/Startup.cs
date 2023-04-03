@@ -1,6 +1,8 @@
 using System;
 using System.Reflection;
 using Domain.Aggregates.AirportAggregate;
+using Domain.Aggregates.FlightAggregate;
+using Domain.Aggregates.OrderAggregate;
 using FluentValidation.AspNetCore;
 using Infrastructure;
 using Infrastructure.Repositores;
@@ -25,10 +27,13 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers()
+            services
+                .AddControllers()
                 .AddNewtonsoftJson()
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(typeof(Startup).Assembly));
-            
+                .AddFluentValidation(
+                    fv => fv.RegisterValidatorsFromAssembly(typeof(Startup).Assembly)
+                );
+
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddMediatR(typeof(Startup));
@@ -37,9 +42,13 @@ namespace API
 
             services.AddFlightsContext(
                 Configuration["Database:ConnectionString"],
-                typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                typeof(Startup).GetTypeInfo().Assembly.GetName().Name
+            );
 
+            // Inject the repositories.
             services.AddScoped<IAirportRepository, AirportRepository>();
+            services.AddScoped<IFlightRepository, FlightRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,7 +65,10 @@ namespace API
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseOpenApi();
             app.UseSwaggerUi3();

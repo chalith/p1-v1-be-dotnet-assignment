@@ -3,11 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Domain.Aggregates.AirportAggregate;
 using Domain.Aggregates.FlightAggregate;
+using Domain.Aggregates.OrderAggregate;
 using Domain.SeedWork;
 using Infrastructure.EntityConfigurations;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Infrastructure
 {
@@ -17,6 +17,9 @@ namespace Infrastructure
         public DbSet<FlightRate> FlightRates { get; set; }
 
         public DbSet<Airport> Airports { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderFlightRate> OrderFlightRates { get; set; }
         
         private readonly IMediator _mediator;
         

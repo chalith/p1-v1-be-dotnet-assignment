@@ -3,15 +3,17 @@ using System;
 using Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
     [DbContext(typeof(FlightsContext))]
-    partial class FlightsContextModelSnapshot : ModelSnapshot
+    [Migration("20230322174747_AlterOrderTables")]
+    partial class AlterOrderTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,9 +106,6 @@ namespace API.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TotalQuantity")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
@@ -188,6 +187,9 @@ namespace API.Migrations
 
                             b1.Property<int>("Currency")
                                 .HasColumnType("integer");
+
+                            b1.Property<Guid>("FlightRateId")
+                                .HasColumnType("uuid");
 
                             b1.Property<decimal>("Value")
                                 .HasColumnType("numeric");

@@ -9,9 +9,7 @@ namespace Domain.Common
         public decimal Value { get; private set; }
         public Currency Currency { get; private set; }
 
-        protected Price()
-        {
-        }
+        protected Price() { }
 
         public Price(decimal value, Currency currency)
         {
@@ -23,6 +21,15 @@ namespace Domain.Common
         {
             yield return Value;
             yield return Currency;
+        }
+
+        /**
+        Add a value the current amount. New value = Old value + value.
+        @param decimal value Value to add.
+        **/
+        public void AddValue(decimal value)
+        {
+            Value += value;
         }
     }
 }

@@ -9,9 +9,7 @@ namespace Domain.Aggregates.FlightAggregate
         public Price Price { get; private set; }
         public int Available { get; private set; }
 
-        protected FlightRate()
-        {
-        }
+        protected FlightRate() { }
 
         public FlightRate(string name, Price price, int available)
         {
@@ -20,11 +18,19 @@ namespace Domain.Aggregates.FlightAggregate
             Available = available;
         }
 
+        /**
+        Change the flight rate price.
+        @param Price price New price.
+        **/
         public void ChangePrice(Price price)
         {
             Price = price;
         }
 
+        /**
+        Change the flight rate availability.
+        @param int quantity New quantity to add.
+        **/
         public void MutateAvailability(int quantity)
         {
             Available += quantity;
